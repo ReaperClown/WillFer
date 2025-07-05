@@ -1,6 +1,12 @@
 'use client';
 import { useEffect, useRef, useState } from "react";
 
+declare global {
+  interface Window {
+    virtualsky?: (...args: any[]) => any;
+  }
+}
+
 interface SkyBackgroundProps {
   date: Date;
   latitude: number;
@@ -25,7 +31,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
         reject("Window undefined");
         return;
       }
-      if ((window as any).virtualsky) {
+      if (window.virtualsky) {
         resolve();
         return;
       }
@@ -47,8 +53,6 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
         if (!skyRef.current) return;
 
         skyRef.current.innerHTML = ""; // limpa conteúdo anterior
-
-        // @ts-expect-error virtualsky is a global from external script
         window.virtualsky?.({
           id: "sky",
           width: window.innerWidth,
