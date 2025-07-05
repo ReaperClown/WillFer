@@ -154,7 +154,7 @@ export default function ClientWrapper() {
                     transition={{ duration: 0.5 }}
                     className="absolute w-full text-center"
                   >
-                    <p>🫶 Desde que se conheceram:</p>
+                    <p>🫶 Desde que nos conhecemos:</p>
                     <p>
                       <strong>{formatTime(metTime)}</strong>
                     </p>
@@ -178,7 +178,7 @@ export default function ClientWrapper() {
             </div>
           )}
 
-          <div className="w-full max-w-2xl mt-6">
+          <div className="w-full max-w-2xl mt-6 carrosel">
             <PolaroidCarousel images={images} />
           </div>
 

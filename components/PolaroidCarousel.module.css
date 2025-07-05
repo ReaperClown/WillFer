@@ -1,11 +1,13 @@
 .carouselContainer {
   position: relative;
-  width: 320px; /* largura fixa do carrossel */
+  width: 320px;
   height: 400px;
   margin-left: auto;
   margin-right: auto;
   perspective: 1200px;
   user-select: none;
+  /* Evitar que o container tenha scroll interno inesperado */
+  overflow: visible;
 }
 
 .polaroidImage {
@@ -26,6 +28,8 @@
   filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.12));
   cursor: default;
   user-select: none;
+  will-change: transform;
+  pointer-events: none; /* para evitar cliques que possam afetar foco/scroll */
 }
 
 /* Animação para a imagem que está no topo "descendo" para trás da pilha */
