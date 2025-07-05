@@ -88,7 +88,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
     const ctx = canvas.getContext("2d");
     let animationFrame: number;
     let stars: { x: number, y: number, r: number, tw: number }[] = [];
-    let shooting: { x: number, y: number, vx: number, vy: number, life: number }[] = [];
+    const shooting: { x: number, y: number, vx: number, vy: number, life: number }[] = [];
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -108,7 +108,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
       if (!ctx || !canvas) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (let s of stars) {
+      for (const s of stars) {
         s.tw += 0.02 + Math.random() * 0.01;
         ctx.globalAlpha = 0.7 + 0.3 * Math.sin(s.tw);
         ctx.beginPath();
@@ -132,7 +132,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
         });
       }
       for (let i = shooting.length - 1; i >= 0; i--) {
-        let s = shooting[i];
+        const s = shooting[i];
         ctx.save();
         ctx.globalAlpha = 1 - s.life / 40;
         ctx.strokeStyle = "#fff";
