@@ -1,12 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from "react";
 
-declare global {
-  interface Window {
-    virtualsky?: (...args: any[]) => any;
-  }
-}
-
 interface SkyBackgroundProps {
   date: Date;
   latitude: number;
@@ -53,6 +47,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
         if (!skyRef.current) return;
 
         skyRef.current.innerHTML = ""; // limpa conteúdo anterior
+
         window.virtualsky?.({
           id: "sky",
           width: window.innerWidth,
