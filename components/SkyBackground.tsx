@@ -27,6 +27,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
       if (skyRef.current) {
         skyRef.current.innerHTML = "";
         // @ts-expect-error
+        // Descriptions of the parameters are provided in the VirtualSky documentation
         window.virtualsky({
           id: skyRef.current,
           width: window.innerWidth,
