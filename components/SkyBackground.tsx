@@ -26,8 +26,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
     script.onload = () => {
       if (skyRef.current) {
         skyRef.current.innerHTML = "";
-        // @ts-expect-error
-        // Descriptions of the parameters are provided in the VirtualSky documentation
+        // @ts-expect-error Incompatibilidade temporária com lib externa
         window.virtualsky({
           id: skyRef.current,
           width: window.innerWidth,

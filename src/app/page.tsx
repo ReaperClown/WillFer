@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 //import { Swiper, SwiperSlide } from "swiper/react";
 //import { Autoplay, Pagination, EffectFade } from "swiper/modules";
@@ -12,7 +12,7 @@ import SkyBackground from "../../components/SkyBackground";
 import defaultMessage from "@/utils/message";
 import { motion, AnimatePresence } from "framer-motion";
 import DragonDivider from "../../components/DragonDivider";
-import TypewriterMessage from "../../components/TypewriterMessage"
+import TypewriterMessage from "../../components/TypewriterMessage";
 
 interface TimeDiff {
   years: number;
@@ -23,7 +23,7 @@ interface TimeDiff {
   seconds: number;
 }
 
-interface FormatTimeInput extends TimeDiff {}
+type FormatTimeInput = TimeDiff;
 
 export default function CouplePage() {
   const [showButton, setShowButton] = useState(true);
@@ -36,8 +36,8 @@ export default function CouplePage() {
   const searchParams = useSearchParams();
 
   const name = searchParams.get("names") || "Willian & Fernanda";
-  const startDate = new Date("2025-06-05T21:15:37-03:00");
-  const metDate = new Date("2025-04-13T21:56:57-03:00");
+  const startDate = useMemo(() => new Date("2025-06-05T21:15:37-03:00"), []);
+  const metDate = useMemo(() => new Date("2025-04-13T21:56:57-03:00"), []);
   const message = searchParams.get("msg") || defaultMessage;
   const videoId = searchParams.get("yt") || "kPa7bsKwL-c";
   const images = [
@@ -197,8 +197,8 @@ export default function CouplePage() {
           <DragonDivider />
 
           <div className="mt-6 bg-white/60 backdrop-blur-sm p-4 md:p-6 rounded-xl max-w-4xl shadow-md">
-  <TypewriterMessage message={message} />
-</div>
+            <TypewriterMessage message={message} />
+          </div>
 
           <DragonDivider />
 
