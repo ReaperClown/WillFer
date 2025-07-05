@@ -18,17 +18,39 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
     visible: false,
   });
 
-  // Load VirtualSky script dynamically and initialize it
+  // Função para carregar script dinamicamente
+  const loadVirtualSkyScript = () => {
+    return new Promise<void>((resolve, reject) => {
+      if (typeof window === "undefined") {
+        reject("Window undefined");
+        return;
+      }
+      if ((window as any).virtualsky) {
+        resolve();
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = "https://slowe.github.io/VirtualSky/virtualsky.min.js";
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject("Failed to load VirtualSky script");
+      document.body.appendChild(script);
+    });
+  };
+
+  // Inicializa o VirtualSky após garantir o script carregou
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://slowe.github.io/VirtualSky/virtualsky.min.js";
-    script.async = true;
-    script.onload = () => {
-      if (skyRef.current) {
-        skyRef.current.innerHTML = "";
-        // @ts-expect-error Incompatibilidade temporária com lib externa
+    let cleanup = false;
+    loadVirtualSkyScript()
+      .then(() => {
+        if (cleanup) return;
+        if (!skyRef.current) return;
+
+        skyRef.current.innerHTML = ""; // limpa conteúdo anterior
+
+        // @ts-expect-error virtualsky is a global from external script
         window.virtualsky({
-          id: skyRef.current,
+          id: "sky",
           width: window.innerWidth,
           height: window.innerHeight,
           longitude,
@@ -52,12 +74,11 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
           zoom: true,
           controls: true,
         });
-      }
-    };
-    document.body.appendChild(script);
+      })
+      .catch(console.error);
 
     return () => {
-      document.body.removeChild(script);
+      cleanup = true;
     };
   }, [date, latitude, longitude]);
 
@@ -73,7 +94,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
       setTooltip({ x, y, visible: true });
 
       setTimeout(() => {
-        setTooltip(prev => ({ ...prev, visible: false }));
+        setTooltip((prev) => ({ ...prev, visible: false }));
       }, 2000); // Hide after 2s
     };
 
@@ -87,8 +108,8 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     let animationFrame: number;
-    let stars: { x: number, y: number, r: number, tw: number }[] = [];
-    const shooting: { x: number, y: number, vx: number, vy: number, life: number }[] = [];
+    let stars: { x: number; y: number; r: number; tw: number }[] = [];
+    const shooting: { x: number; y: number; vx: number; vy: number; life: number }[] = [];
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -160,9 +181,17 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
 
   function MoonPhase() {
     return (
-      <svg width="60" height="60" style={{
-        position: "absolute", top: 40, right: 60, zIndex: 10, opacity: 0.7,
-      }}>
+      <svg
+        width="60"
+        height="60"
+        style={{
+          position: "absolute",
+          top: 40,
+          right: 60,
+          zIndex: 10,
+          opacity: 0.7,
+        }}
+      >
         <circle cx="30" cy="30" r="25" fill="#fffbe6" />
         <ellipse cx="38" cy="30" rx="20" ry="25" fill="#23213a" />
       </svg>
@@ -182,6 +211,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
       }}
     >
       <div
+        id="sky"
         ref={skyRef}
         style={{
           position: "absolute",

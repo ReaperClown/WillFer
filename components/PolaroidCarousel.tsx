@@ -48,10 +48,14 @@ export function PolaroidCarousel({
             key={i}
             src={src}
             alt={`Polaroid ${i + 1}`}
+            width={300} // largura da imagem
+            height={400} // altura da imagem
             className={styles.polaroidImage}
             style={{
               zIndex: images.length - stackPos,
-              transform: `translateX(-50%) translateY(${stackPos * 5}px) rotate(${rotation}deg)`,
+              transform: `translateX(-50%) translateY(${
+                stackPos * 5
+              }px) rotate(${rotation}deg)`,
               opacity: stackPos === 0 ? 1 : 0.9,
               animation:
                 stackPos === 0
