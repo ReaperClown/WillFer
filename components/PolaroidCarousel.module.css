@@ -1,0 +1,43 @@
+.carouselContainer {
+  position: relative;
+  width: 320px; /* largura fixa do carrossel */
+  height: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  perspective: 1200px;
+  user-select: none;
+}
+
+.polaroidImage {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 280px;
+  height: 360px;
+  object-fit: cover;
+  border: 12px solid white;
+  box-shadow:
+    0 15px 25px rgba(0, 0, 0, 0.3),
+    0 8px 10px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  transform-origin: center bottom;
+  transition: transform 0.8s ease, opacity 0.5s ease;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.12));
+  cursor: default;
+  user-select: none;
+}
+
+/* Animação para a imagem que está no topo "descendo" para trás da pilha */
+@keyframes moveToBack {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1.05);
+    opacity: 1;
+    z-index: 1000;
+  }
+  100% {
+    transform: translateY(40px) rotate(20deg) scale(0.9);
+    opacity: 0.8;
+    z-index: 0;
+  }
+}
