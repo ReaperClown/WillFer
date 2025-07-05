@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import styles from "./PolaroidCarousel.module.css";
+import Image from "next/image";
 
 interface PolaroidCarouselProps {
   images: string[];
@@ -43,7 +44,7 @@ export function PolaroidCarousel({
         const stackPos = getStackIndex(i);
         const rotation = ROTATIONS[stackPos % ROTATIONS.length];
         return (
-          <img
+          <Image
             key={i}
             src={src}
             alt={`Polaroid ${i + 1}`}
