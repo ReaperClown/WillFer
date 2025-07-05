@@ -49,7 +49,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
         skyRef.current.innerHTML = ""; // limpa conteúdo anterior
 
         // @ts-expect-error virtualsky is a global from external script
-        window.virtualsky({
+        window.virtualsky?.({
           id: "sky",
           width: window.innerWidth,
           height: window.innerHeight,
