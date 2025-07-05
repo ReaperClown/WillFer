@@ -233,7 +233,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
           pointerEvents: "none",
         }}
       />
-      <MoonPhase />
+      
       {message && (
         <div
           style={{
