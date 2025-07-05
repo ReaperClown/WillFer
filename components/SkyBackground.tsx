@@ -273,7 +273,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
             whiteSpace: "nowrap",
           }}
         >
-          ✨ Céu tocado
+          ✨ Assim estava nosso céu naquele dia
         </div>
       )}
     </div>
