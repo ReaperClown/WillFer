@@ -177,7 +177,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
       cancelAnimationFrame(animationFrame);
     };
   }, []);
-
+{/*
   function MoonPhase() {
     return (
       <svg
@@ -196,7 +196,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
       </svg>
     );
   }
-
+*/}
   return (
     <div
       style={{
@@ -233,7 +233,7 @@ export default function SkyBackground({ date, latitude, longitude, message }: Sk
           pointerEvents: "none",
         }}
       />
-      
+      {/* <MoonPhase /> */}
       {message && (
         <div
           style={{
