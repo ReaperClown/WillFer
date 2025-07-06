@@ -56,11 +56,12 @@ export function PolaroidCarousel({
               transform: `translateX(-50%) translateY(${
                 stackPos * 5
               }px) rotate(${rotation}deg)`,
-              opacity: stackPos === 0 ? 1 : 0.9,
+              opacity: stackPos === 0 ? 1 : 1,
               animation:
                 stackPos === 0
                   ? `${styles.moveToBack} 1s ease forwards`
                   : "none",
+
               animationDelay:
                 stackPos === 0 ? `${intervalMs - 1000}ms` : undefined,
             }}
